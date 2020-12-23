@@ -22,14 +22,27 @@ def get_citations_needed_report(url):
     lst = []
     words = "citation needed"
     print('#'*100)
-    print('P.S: there are 5 Citation , two of them are together in the sane paragraph , you cans notice that in the one from the results')
+    print('P.S: there are 5 Citation , two of them are together in the sane paragraph , you cans notice that in the first one from the results')
     print('#'*100)
     for i in soup.select('p'):
         p_elements = i.getText()
         # print(p_elements)
+        counter = 0
         if words in p_elements:
+            counter += 1
+            if counter == 2:
+                parts= p_elements.split('[citation needed]')
+                lst.append(parts[0])
+                lst.append(parts[1])
+                print(parts[0])
+                print('///'*20)
+                print(parts[1])
+                print('///'*20)
+                continue
+                
             lst.append(p_elements)
             print(p_elements)
+            # print(p_elements[0:p_elements.find('needed]')+len('needed ')])
             print('==='*20)
     return
 
